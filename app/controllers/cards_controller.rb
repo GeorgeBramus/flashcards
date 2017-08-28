@@ -1,10 +1,12 @@
 class CardsController < ApplicationController
+
   def index
     @cards = Card.all
   end
 
   def show
-    @card = Card.find(params[:id])
+    @card = @set_card
+    # @card = Card.find(params[:id])
   end
 
   def new
@@ -15,23 +17,23 @@ class CardsController < ApplicationController
     record_card = Card.create(card_params)
     if record_card.errors.empty?
       redirect_to action: 'index'
-    else
       render 'new'
     end
   end
 
-  def edit
-    @card = Card.find(params[:id])
+    @card = @set_card
+    # @card = Card.find(params[:id])
   end
 
   def update
-    @card = Card.find(params[:id])
+    @card = @set_card
     @card.update_attributes(card_params)
     redirect_to action: 'index'
   end
 
   def destroy
-    @card = Card.find(params[:id])
+    @card = @set_card
+    # @card = Card.find(params[:id])
     @card.destroy
     redirect_to action: 'index'
   end

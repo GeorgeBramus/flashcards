@@ -6,7 +6,7 @@ class Card < ApplicationRecord
 
   private
     def date_change
-      self.review_date = 3.days.ago
+      self.review_date = 3.days.since
     end
 
     def coincidence

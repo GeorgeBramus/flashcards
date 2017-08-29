@@ -2,8 +2,4 @@ h2
   | Редактирование. Карточка №
   = @card.id
 
-= simple_form_for @card, :url => { :action => "update" } do |f|
-  = f.input :original_text
-  = f.input :translated_text
-  = f.input :review_date, input_html: { class: 'field_select' }
-  = f.button :submit, value: 'Обновить карточку'
+= render partial: "form_of_adding_a_card", locals: { form_target: @card, name_button_submit: "Обновить карточку" }

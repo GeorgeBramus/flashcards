@@ -1,5 +1,5 @@
 h2 Все карточки
-.grid-x.grid-margin-x
+.grid-x.grid-padding-x
   - if @cards
     - @cards.each do |card|
       .card.cell.small-6.medium-4.large-3
@@ -26,7 +26,3 @@ h2 Все карточки
 
   - else
     .alert-box.alert data-alert="" карточки не найдены
-
-- if @rec
-  div style="background-color: orange; padding: 15px"
-    = @rec

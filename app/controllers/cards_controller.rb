@@ -5,8 +5,6 @@ class CardsController < ApplicationController
   end
 
   def show
-    @card = @set_card
-    # @card = Card.find(params[:id])
   end
 
   def new
@@ -14,28 +12,25 @@ class CardsController < ApplicationController
   end
 
   def create
-    record_card = Card.create(card_params)
-    if record_card.errors.empty?
-      redirect_to action: 'index'
-      render 'new'
+    @card = Card.create(card_params)
+    if @card.save!
+      redirect_to @card
+    else
+      render :new
     end
   end
 
-    @card = @set_card
-    # @card = Card.find(params[:id])
+  def edit
   end
 
   def update
-    @card = @set_card
-    @card.update_attributes(card_params)
-    redirect_to action: 'index'
+    @card.update(card_params)
+    redirect_to @card
   end
 
   def destroy
-    @card = @set_card
-    # @card = Card.find(params[:id])
     @card.destroy
-    redirect_to action: 'index'
+    redirect_to @card
   end
 
   private

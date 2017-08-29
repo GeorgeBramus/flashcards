@@ -59,6 +59,5 @@ gem 'slim'
 gem 'slim-rails'
 gem 'foundation'
 gem 'foundation-rails', '~> 6.4.1.2'
-
 gem 'simple_form'
-
+gem 'nokogiri'

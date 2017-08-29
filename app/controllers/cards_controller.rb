@@ -31,7 +31,7 @@ class CardsController < ApplicationController
 
   def destroy
     @card.destroy
-    redirect_to :index
+    redirect_to action: "index"
   end
 
   private

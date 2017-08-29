@@ -34,6 +34,16 @@ class CardsController < ApplicationController
     redirect_to action: "index"
   end
 
+  def parsing
+    require 'open-uri'
+    require 'nokogiri'
+
+    url = 'http://1000mostcommonwords.com/1000-most-common-russian-words/'
+    html = open(url)
+
+    @words = Nokogiri::HTML(html)
+  end
+
   private
 
   def card_params

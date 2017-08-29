@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :cards
+  get 'parsing', to: 'cards#parsing'
 
   root 'home#index'
 

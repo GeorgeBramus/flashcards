@@ -1,2 +1,22 @@
-h1 Cards#show
-p Find me in app/views/cards/show.html.slim
+h2
+  | Карточка №
+  = @card.id
+
+.grid-container
+  .grid-x.grid-padding-x
+    .card.cell.small-6.medium-4.large-3
+      .card-flash.card-date
+        .left
+          = @card.review_date.strftime("%d/%m/%Y")
+        .right
+          = link_to edit_card_path(@card), title: "редактировать"
+            i.material-icons mode_edit
+          = link_to card_path(@card), method: :delete, title: "удалить"
+            i.material-icons delete
+
+      .card-flash.card-original-text
+        span Original text
+        = @card.original_text
+      .card-flash.card-translated-text.card-last
+        span Translated text
+        = @card.translated_text

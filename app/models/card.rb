@@ -11,7 +11,7 @@ class Card < ApplicationRecord
 
     def coincidence
       if self.original_text.to_s.downcase.intern == self.translated_text.to_s.downcase.intern
-        errors.add(:card, "The original text should be different from the translated text")
+        errors.add(:base, "The original text should be different from the translated text")
       end
     end
 end

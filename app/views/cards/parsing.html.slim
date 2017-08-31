@@ -1,0 +1,12 @@
+table
+  thead
+    tr
+      td ID
+      td Original text
+      td Translated text
+  tbody
+    = @words.css('table tbody tr').each do |row|
+      tr
+        td = row.css('td')[0].text
+        td = row.css('td')[1].text
+        td = row.css('td')[2].text

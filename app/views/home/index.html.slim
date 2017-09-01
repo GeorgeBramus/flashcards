@@ -1,2 +1,18 @@
-p style="font-size: 22px"
-  | Первый в мире удобный менеджер флеш-карточек. Именно так.
+h3
+  | Главная / Повторение
+h4
+  | Введите перевод и отправьте для проверки
+
+- if @message
+  br
+  div
+    | Результат:&nbsp;
+    span style="font-weight: bold"
+      = @message
+  br
+
+= form_with( url: home_path, data: { remote: false } ) do |f|
+  = f.hidden_field :id, value: @card.id
+  = f.text_field :original_text, value: @card.original_text
+  = f.text_field :translated_text
+  = f.submit "Проверить", class: "button"

@@ -5,6 +5,7 @@ class CardsController < ApplicationController
     @cards = Card.all
   end
 
+  # before_action
   def show
   end
 
@@ -21,26 +22,28 @@ class CardsController < ApplicationController
     end
   end
 
+  # before_action
   def edit
   end
 
+  # before_action
   def update
     @card.update(card_params)
     redirect_to @card
   end
 
+  # before_action
   def destroy
     @card.destroy
     redirect_to action: "index"
   end
 
   private
+    def card_params
+      params.require(:card).permit(:original_text, :translated_text, :review_date)
+    end
 
-  def card_params
-    params.require(:card).permit(:original_text, :translated_text, :review_date)
-  end
-
-  def set_card
-    @card = Card.find(params[:id])
-  end
+    def set_card
+      @card = Card.find(params[:id])
+    end
 end

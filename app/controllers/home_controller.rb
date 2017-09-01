@@ -24,7 +24,7 @@ class HomeController < ApplicationController
     end
 
     def cards_until_that_day
-      card = Card.where("review_date <= '#{Date.today}'").only(:id, :original_text)
+      card = Card.where("review_date <= :date_today", { date_today: Date.today })
       @card = card.order("RANDOM()").first
     end
 

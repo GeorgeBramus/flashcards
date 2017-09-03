@@ -77,6 +77,7 @@ GEM
     globalid (0.4.0)
       activesupport (>= 4.2.0)
     i18n (0.8.6)
+    interactor (3.1.0)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
@@ -205,6 +206,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   foundation
   foundation-rails (~> 6.4.1.2)
+  interactor
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   nokogiri

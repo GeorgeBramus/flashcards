@@ -14,8 +14,8 @@ h4
 - if @card
   = form_with( url: home_path, data: { remote: false } ) do |f|
     = f.hidden_field :id, value: @card.id if @card
-    = f.text_field :original_text, value: @card.original_text if @card
-    = f.text_field :translated_text
+    = f.text_field :original_text
+    = f.text_field :translated_text, value: @card.translated_text if @card
     = f.submit "Проверить", class: "button"
 - else
   div Карточки для повторения не найдены. Попробуйте завтра

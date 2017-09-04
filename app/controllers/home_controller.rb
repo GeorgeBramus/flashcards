@@ -1,42 +1,37 @@
 class HomeController < ApplicationController
   def index
-    cards_until_that_day
+    result = FindCard.call()
+    @card = result.card
   end
 
   def check
-    translated_text_check = params[:translated_text]
-    card_check = card_find
+    result = CheckCard.call(
+      custom_original_text: params[:original_text],
+      verified_card: Card.find(params[:id]),
+    )
 
-    if card_check.translated_text.to_s.downcase.intern == translated_text_check.to_s.downcase.intern
-      card_update
-      message 'correctly'
-      cards_until_that_day
+    if result.result_of_checking
+      card = Card.find(params[:id]).update(original_text: params[:original_text])
+      if card
+        message 'correctly'
+      else
+        message 'wrong_db'
+      end
     else
       message 'wrong'
-      @card = card_find
     end
-    render :index
+
+    redirect_to action: :index
   end
 
   private
-    def card_find
-      Card.find(params[:id])
-    end
-
-    def cards_until_that_day
-      card = Card.where("review_date <= :date_today", { date_today: Date.today })
-      @card = card.order("RANDOM()").first
-    end
-
-    def card_update
-      Card.find(params[:id]).update(translated_text: card_check.translated_text)
-    end
-
     def message message
       if message == 'correctly'
         @message = 'Вы правильно ответили! Повторите через три дня.'
       elsif message == 'wrong'
         @message = 'Неверно! Введите ваш ответ снова.'
+      elsif message == 'wrong_db'
+        @message = 'Не удалось обновить карточку. Попробуйте чуть позже.'
       end
     end
 end

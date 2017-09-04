@@ -2,11 +2,10 @@ class FindCard
   include Interactor
 
   def call
-    up_to_date = context.up_to_date ? context.up_to_date : Date.today
-
-    card = Card.where("review_date <= :date", { date: up_to_date })
-    if card
-      context.card = card.order("RANDOM()").first
+    card = Card.where("review_date <= :date", { date: Date.today })
+    card = card.order("RANDOM()").first
+    if card.count > 0
+      context.card = card
     else
       context.fail!
     end

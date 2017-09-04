@@ -3,12 +3,12 @@ h3
 h4
   | Введите перевод и отправьте для проверки
 
-- if @message
+- if flash[:notice]
   br
   div
     | Результат:&nbsp;
     span style="font-weight: bold"
-      = @message
+      = flash[:notice]
   br
 
 - if @card

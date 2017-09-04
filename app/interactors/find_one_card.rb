@@ -1,10 +1,10 @@
-class FindOneCrad
+class FindOneCard
   include Interactor
 
   def call
     card = Card.find(context.params)
     if card
-      contet.card = card
+      context.card = card
     else
       context.fail!
     end

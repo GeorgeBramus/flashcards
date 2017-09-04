@@ -1,36 +1,37 @@
 class HomeController < ApplicationController
   def index
-    # Стоит отметить, что этот код работет
-    # card = Card.where("review_date <= :up_to_date", { up_to_date: Date.today })
-    # @card = card.order("RANDOM()").first
-
-    # А интерактор никак не хочет. Видимо проблема внутри
-    @card = CardForRepetition.call()
+    result = CardForRepetition.call()
+    @card = result.card
   end
 
   def check
     # The text of the translation that the user entered.
     translated_text_check = params[:translated_text]
     # We are looking for a card in which there is a correct translation.
-    card_check = FindOneCard.call( params: params[:id] )
+    result = FindOneCard.call( params: params[:id] )
+    card_check = result.card
 
     if card_check.translated_text.to_s.downcase.intern == translated_text_check.to_s.downcase.intern
-      card = CardUpdate.call(
+      result = CardUpdate.call(
         desired_card: card_check,
         params: params[:id]
       )
+      card = result.card
       if card
         message 'correctly'
-        @card = CardForRepetition.call( up_to_date: Date.today )
+        result = CardForRepetition.call( up_to_date: Date.today )
+        @card = result.card
       else
         message 'wrong_db'
-        @card = FindOneCard.call( params: params[:id] )
+        result = FindOneCard.call( params: params[:id] )
+        @card = result.card
       end
     else
       message 'wrong'
-      @card = FindOneCard.call( params: params[:id] )
+      result = FindOneCard.call( params: params[:id] )
+      @card = result.card
     end
-    render :index
+    redirect_to action: :index
   end
 
   private

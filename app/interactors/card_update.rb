@@ -2,11 +2,16 @@ class CardUpdate
   include Interactor
 
   def call
-    new_translated_text = desire_card.translated_text
     if context.desired_card
-      unless Card.find(context.params).update(translated_text: context.desired_card.translated_text)
+      context_card = context.desired_card
+      new_translated_text = context_card.translated_text
+      if Card.find(context.params).update(translated_text: context_card.translated_text)
+        context.card = true
+      else
         context.fail!
       end
+    else
+      context.fail!
     end
   end
 end

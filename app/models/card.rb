@@ -2,7 +2,7 @@ class Card < ApplicationRecord
   validates :original_text, :translated_text, presence: true
   validate :coincidence, on: [ :create, :update ]
 
-  before_save :date_change, on: [ :create, :update ]
+  before_save :date_change, on: [ :create ]
 
   private
     def date_change
@@ -15,4 +15,3 @@ class Card < ApplicationRecord
       end
     end
 end
-

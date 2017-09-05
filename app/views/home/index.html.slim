@@ -1,2 +1,21 @@
-p style="font-size: 22px"
-  | Первый в мире удобный менеджер флеш-карточек. Именно так.
+h3
+  | Главная / Повторение
+h4
+  | Введите перевод и отправьте для проверки
+
+- if flash[:notice]
+  br
+  div
+    | Результат:&nbsp;
+    span style="font-weight: bold"
+      = flash[:notice]
+  br
+
+- if @card
+  = form_with( url: root_path, data: { remote: false } ) do |f|
+    = f.hidden_field :id, value: @card.id if @card
+    = f.text_field :original_text
+    = f.text_area :translated_text, rows: 5, value: @card.translated_text if @card
+    = f.submit "Проверить", class: "button"
+- else
+  div Карточки для повторения не найдены. Попробуйте завтра

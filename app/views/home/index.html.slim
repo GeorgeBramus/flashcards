@@ -12,7 +12,7 @@ h4
   br
 
 - if @card
-  = form_with( url: home_check_path, data: { remote: false } ) do |f|
+  = form_with( url: root_path, data: { remote: false } ) do |f|
     = f.hidden_field :id, value: @card.id if @card
     = f.text_field :original_text
     = f.text_area :translated_text, rows: 5, value: @card.translated_text if @card

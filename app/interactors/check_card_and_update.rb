@@ -9,13 +9,15 @@ class CheckCardAndUpdate
     if card_current
       if card_current.original_text.to_s.downcase.intern == custom_original_text.to_s.downcase.intern
         if card_current.update(review_date: 3.days.since)
-          context.message = 'Вы правильно ответиди!'
+          context.message = 'Вы правильно ответили!'
+        else
+          context.message = 'Не удалось обновить карточку. Попробуйте позже'
         end
       else
         context.message = 'Неверно!'
       end
     else
-      context.message = 'Не удалось обновить карточку. Попробуйте позже'
+      context.fail!
     end
   end
 end

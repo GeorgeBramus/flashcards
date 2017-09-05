@@ -7,11 +7,9 @@ class HomeController < ApplicationController
   def check
     result = CheckCardAndUpdate.call(
       custom_original_text: params[:original_text],
-      verified_card: Card.find(params[:id]),
+      card_id: params[:id]
     )
-    message = result.message
 
-    flash[:notice] = message
-    redirect_to action: :index
+    redirect_to action: :index, notice: result.message
   end
 end

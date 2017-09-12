@@ -1,18 +1,27 @@
 require 'rails_helper'
 
-RSpec.describe Card, :type => :model do
-  describe 'change when creating' do
-    it 'the original_text is empty' do
-      # card = FactoryGirl.build(:card_original_text_empty)
-      expect { FactoryGirl.build(:card_original_text_empty) }.to raise_error
+RSpec.describe Card do
+  context 'validates' do
+    it 'original_text not to be empty' do
+      card = FactoryGirl.build(:card, original_text: '')
+      expect(card.valid?).to be_falsey
     end
-    it 'the translated_text is empty' do
-      # card = FactoryGirl.build(:card_translated_text_empty)
-      expect { FactoryGirl.build(:card_translated_text_empty) }.to raise_error
+
+    it 'translated_text not to be empty' do
+      card = FactoryGirl.build(:card, translated_text: '')
+      expect(card.valid?).to be_falsey
     end
-    it 'field review_date' do
-      card = FactoryGirl.build(:card)
-      card.review_date = 3.days.since
+
+    it 'same string' do
+      card = FactoryGirl.build(:card, translated_text: 'the table')
+      expect(card.valid?).to be_falsey
+    end
+  end
+
+  context 'callbacks' do
+    it 'add 3 days' do
+      card = FactoryGirl.create(:card)
+      expect(card.review_date).to eq(3.days.since.to_date)
     end
   end
 end

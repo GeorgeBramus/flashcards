@@ -20,3 +20,6 @@
 
 mentor05.sublime-project
 mentor05.sublime-workspace
+/public/packs
+/public/packs-test
+/node_modules

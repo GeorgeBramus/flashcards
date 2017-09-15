@@ -10,7 +10,7 @@ class HomeController < ApplicationController
       card_id: params[:id]
     )
 
-    # flash[:notice] = result.message
-    redirect_to action: :index, notice: result.message
+    flash[:notice] = result.message
+    redirect_to action: :index
   end
 end

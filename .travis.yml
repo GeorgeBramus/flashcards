@@ -1,8 +1,6 @@
 language: ruby
 rvm:
   - 2.4.1
-  # - jruby
-  # - rbx
 services:
   - postgresql
 before_script:
@@ -12,7 +10,6 @@ before_script:
 test:
   adapter: postgresql
   database: travis_ci_test
-#   password: password
 service:
   - RAILS_ENV=test bundle exec rake db:create db:migrate --trace
   - rspec ./spec

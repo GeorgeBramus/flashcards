@@ -1,0 +1,54 @@
+@import "main"
+
+$colors_for_message: (wrong: red, right: green, db_error: deeporange)
+$level: 700
+
+$radius_single: 10px
+$padding_standard: 0.75em 1em
+$title_text_color: White
+$font_size_for_title: 1.2em
+
+@mixin color_for_message($type_message: wrong, $type_visual: title)
+  @each $key, $value in $colors_for_message
+    @if $key == $type_message
+      @if $type_visual == 'title'
+        @include md_color($value,$level,background-color)
+      @else if $type_visual == 'content'
+        @include md_color_border(all,2px,solid,$value,$level)
+
+@mixin dif_message($type_message: wrong)
+  #error_explanation[class="#{$type_message}"]
+    h2
+      @include color_for_message($type_message,title)
+    ul
+      li
+        @include color_for_message($type_message,content)
+
+
+// For action "cards#new" and "home#index" for Simple Trainer. Errors output
+#error_explanation
+  margin: 1em 0 1.5em 0
+
+  h2
+    font-size: $font_size_for_title
+    font-weight: bold
+    color: $title_text_color
+    padding: $padding_standard
+    margin: 0
+    border-radius: $radius_single $radius_single 0 0
+    @include color_for_message(wrong,title)
+
+  ul
+    list-style-type: none
+    margin: 0
+    padding: 0
+
+    li
+      display: block
+      padding: $padding_standard
+      @include color_for_message(wrong,content)
+      border-radius: 0 0 $radius_single $radius_single
+
+@include dif_message(wrong)
+@include dif_message(right)
+@include dif_message(db_error)

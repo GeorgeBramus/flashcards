@@ -16,7 +16,7 @@ h4
       li = flash[:notice]
 
 - if @card
-  = form_with( url: root_path, data: { remote: false } ) do |f|
+  = form_with( class: 'form_for_simple_trainer', url: root_path, data: { remote: false } ) do |f|
     = f.hidden_field :id, id: 'card_id', value: @card.id if @card
 
     = f.label :original_text, 'Original text'

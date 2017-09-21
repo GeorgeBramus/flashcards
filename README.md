@@ -1,4 +1,4 @@
-# FLASH CARDS
+# FLASH CARDS v.2
 
 ### Application tester status from Travis CI
 

@@ -20,8 +20,7 @@ RSpec.describe Card, type: :feature do
       created_card = FactoryGirl.create(:card)
       created_card.update(review_date: 1.day.ago)
       visit('/')
-      # translated_text = find_field('Translated text').text
-      translated_text = find(:xpath, "//textarea[contains(@name, 'translated_text')]").value
+      translated_text = find(:xpath, '//textarea[@name="translated_text"]').value
       fill_in('original_text', with: translated_text)
       click_button('Проверить')
       expect(page).to have_content "Неверно!"

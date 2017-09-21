@@ -21,8 +21,7 @@ $font_size_for_title: 1.2em
     h2
       @include color_for_message($type_message,title)
     ul
-      li
-        @include color_for_message($type_message,content)
+      @include color_for_message($type_message,content)
 
 
 // For action "cards#new" and "home#index" for Simple Trainer. Errors output
@@ -39,15 +38,15 @@ $font_size_for_title: 1.2em
     @include color_for_message(wrong,title)
 
   ul
-    list-style-type: none
+    // list-style-type: none
     margin: 0
-    padding: 0
+    display: block
+    padding: $padding_standard
+    @include color_for_message(wrong,content)
+    border-radius: 0 0 $radius_single $radius_single
 
     li
-      display: block
-      padding: $padding_standard
-      @include color_for_message(wrong,content)
-      border-radius: 0 0 $radius_single $radius_single
+      margin-left: 1em
 
 @include dif_message(wrong)
 @include dif_message(right)

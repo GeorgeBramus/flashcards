@@ -2,7 +2,7 @@ class Card < ApplicationRecord
   validates :original_text, :translated_text, presence: true
   validate :coincidence, on: [ :create, :update ]
 
-  before_save :date_change, on: [ :create ]
+  before_create :date_change, on: [ :create ]
 
   private
 

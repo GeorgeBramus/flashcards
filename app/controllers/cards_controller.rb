@@ -11,6 +11,11 @@ class CardsController < ApplicationController
 
   def new
     @card = Card.new
+    @users_id = Array.new
+    users = User.all
+    users.each do |user|
+      @users_id.push(user.id)
+    end
   end
 
   def create
@@ -41,7 +46,7 @@ class CardsController < ApplicationController
   private
 
   def card_params
-    params.require(:card).permit(:original_text, :translated_text, :review_date)
+    params.require(:card).permit(:original_text, :translated_text, :review_date, :user_id)
   end
 
   def set_card

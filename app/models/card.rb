@@ -1,5 +1,7 @@
 class Card < ApplicationRecord
-  validates :original_text, :translated_text, presence: true
+  belongs_to :user
+
+  validates :original_text, :translated_text, :user_id, presence: true
   validate :coincidence, on: [ :create, :update ]
 
   before_create :date_change, on: [ :create ]

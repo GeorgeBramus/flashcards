@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe CheckCardAndUpdate, type: :interactor do
   describe 'return message' do
     it 'correct answer' do
-      card = FactoryGirl.create(:card)
+      user = FactoryGirl.create(:user)
+      card = FactoryGirl.create(:card, user_id: user.id)
       interactor = CheckCardAndUpdate.call(
         custom_original_text: card.original_text,
         card_id: card.id
@@ -11,7 +12,8 @@ RSpec.describe CheckCardAndUpdate, type: :interactor do
       expect(interactor.message).to eq('Вы правильно ответили!')
     end
     it 'wrong answer' do
-      card = FactoryGirl.create(:card)
+      user = FactoryGirl.create(:user)
+      card = FactoryGirl.create(:card, user_id: user.id)
       interactor = CheckCardAndUpdate.call(
         custom_original_text: '*',
         card_id: card.id
@@ -29,7 +31,8 @@ RSpec.describe CheckCardAndUpdate, type: :interactor do
   end
 
   it 'update review_date' do
-    card = FactoryGirl.create(:card)
+    user = FactoryGirl.create(:user)
+    card = FactoryGirl.create(:card, user_id: user.id)
     interactor = CheckCardAndUpdate.call(
       custom_original_text: card.original_text,
       card_id: card.id

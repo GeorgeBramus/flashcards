@@ -14,9 +14,11 @@ RSpec.describe Card, type: :feature do
       expect(page).to have_content "Новая карточка"
     end
     it 'form for create card' do
+      user = FactoryGirl.create(:user)
       visit('/cards/new')
       fill_in('Original text', with: 'a table')
       fill_in('Translated text', with: 'стол')
+      select(user.id, from: 'card_user_id')
       click_button('Создать')
       card = Card.last
       expect(page).to have_content "Карточка №#{card.id}"

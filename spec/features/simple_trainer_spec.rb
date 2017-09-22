@@ -7,7 +7,8 @@ RSpec.describe Card, type: :feature do
       expect(page).to have_content "Введите перевод и отправьте для проверки"
     end
     it 'successful verification' do
-      created_card = FactoryGirl.create(:card)
+      user = FactoryGirl.create(:user)
+      created_card = FactoryGirl.create(:card, user_id: user.id)
       created_card.update(review_date: 1.day.ago)
       visit('/')
       id = find('#card_id', visible: :hidden).value
@@ -17,7 +18,8 @@ RSpec.describe Card, type: :feature do
       expect(page).to have_content "Вы правильно ответили!"
     end
     it 'poor verification result' do
-      created_card = FactoryGirl.create(:card)
+      user = FactoryGirl.create(:user)
+      created_card = FactoryGirl.create(:card, user_id: user.id)
       created_card.update(review_date: 1.day.ago)
       visit('/')
       translated_text = find(:xpath, '//textarea[@name="translated_text"]').value

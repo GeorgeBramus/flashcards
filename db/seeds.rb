@@ -9,7 +9,7 @@
 require 'open-uri'
 require 'nokogiri'
 
-['Amelia','Oliver','Olivia','Jack','Emily','Harry'].each do |name|
+%w[Amelia Oliver Olivia Jack Emily Harry].each do |name|
   User.create(email: "#{name}@email.mail", password: 'qwerty')
 end
 

@@ -11,11 +11,6 @@ class CardsController < ApplicationController
 
   def new
     @card = Card.new
-    @users_id = Array.new
-    users = User.all
-    users.each do |user|
-      @users_id.push(user.id)
-    end
   end
 
   def create

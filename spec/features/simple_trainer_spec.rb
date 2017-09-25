@@ -1,15 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe Card, type: :feature do
+  before (:example) do
+    @user = FactoryGirl.create(:user)
+    @card = FactoryGirl.create(:card)
+    @card.update(review_date: 1.day.ago)
+  end
+
   describe 'Main page' do
     it 'title' do
       visit('/')
       expect(page).to have_content "Введите перевод и отправьте для проверки"
     end
     it 'successful verification' do
-      user = FactoryGirl.create(:user)
-      created_card = FactoryGirl.create(:card, user_id: user.id)
-      created_card.update(review_date: 1.day.ago)
       visit('/')
       id = find('#card_id', visible: :hidden).value
       original_text = Card.find_by(id: id).original_text
@@ -18,9 +21,6 @@ RSpec.describe Card, type: :feature do
       expect(page).to have_content "Вы правильно ответили!"
     end
     it 'poor verification result' do
-      user = FactoryGirl.create(:user)
-      created_card = FactoryGirl.create(:card, user_id: user.id)
-      created_card.update(review_date: 1.day.ago)
       visit('/')
       translated_text = find(:xpath, '//textarea[@name="translated_text"]').value
       fill_in('original_text', with: translated_text)

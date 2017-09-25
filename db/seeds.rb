@@ -9,6 +9,10 @@
 require 'open-uri'
 require 'nokogiri'
 
+['Amelia', 'Oliver', 'Olivia', 'Jack', 'Emily', 'Harry'].each do |name|
+  User.create(email: "#{name}@email.mail", password: 'qwerty')
+end
+
 url = 'http://1000mostcommonwords.com/1000-most-common-russian-words/'
 html = open(url)
 
@@ -17,5 +21,5 @@ words.css('table tbody tr').each do |word|
   original_text = word.css('td')[1].text
   translated_text = word.css('td')[2].text
 
-  Card.create(original_text: original_text, translated_text: translated_text)
+  Card.create(original_text: original_text, translated_text: translated_text, user_id: User.order('RANDOM()').first.id)
 end

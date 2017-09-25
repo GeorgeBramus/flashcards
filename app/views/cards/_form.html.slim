@@ -8,5 +8,6 @@
 
   = f.input :original_text
   = f.input :translated_text
+  = f.input :user_id, as: :select, collection: User.all, label_method: :email, input_html: { class: 'field_select' }
   = f.input :review_date, input_html: { class: 'field_select' }
   = f.button :submit, value: button_name

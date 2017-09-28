@@ -16,7 +16,7 @@ $font_size_for_title: 1.2em
       @else if $type_visual == 'content'
         @include md_color_border(all,2px,solid,$value,$level)
 
-@mixin dif_message($type_message: wrong)
+@mixin dif_message($type_message: right)
   #error_explanation[class="#{$type_message}"]
     h2
       @include color_for_message($type_message,title)

@@ -4,12 +4,12 @@ h4
   | Введите перевод и отправьте для проверки
 
 - if flash[:notice]
-  - if flash[:notice] == 'Вы правильно ответили!'
+  - if flash[:notice] == 'Вы правильно ответили!' or flash[:notice] == 'Signed in successfully.'
     - background_color = 'right'
   - elsif flash[:notice] == 'Неверно!'
     - background_color = 'wrong'
-  - else flash[:notice] == 'Не удалось обновить карточку. Попробуйте позже'
-    - background_color = 'db-error'
+  - elsif flash[:notice] == 'Не удалось обновить карточку. Попробуйте позже' or flash[:notice] == 'Signed out successfully.'
+    - background_color = 'db_error'
   #error_explanation class="#{background_color}"
     h2 Результат
     ul

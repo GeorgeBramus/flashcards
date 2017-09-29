@@ -2,7 +2,12 @@ class CardsController < ApplicationController
   before_action :set_card, only: [ :show, :edit, :update, :destroy ]
 
   def index
-    @cards = Card.all
+    if user_signed_in?
+      user = current_user
+      @cards = user.cards
+    else
+      @cards = Card.all
+    end
   end
 
   # before_action

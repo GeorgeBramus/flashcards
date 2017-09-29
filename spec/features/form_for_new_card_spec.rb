@@ -1,12 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Card, type: :feature do
-  # before(:each) do
-  #   visit('/cards/new')
-  #   fill_in('Original text', with: 'a table')
-  #   fill_in('Translated text', with: 'стол')
-  #   click_button('Создать')
-  # end
+  before(:each) do
+    @user = FactoryGirl.create(:user)
+    visit('/users/sign_in')
+    fill_in('Email', with: 'email@email.mail')
+    fill_in('Пароль', with: 'password')
+    click_button('Авторизоваться')
+  end
 
   describe 'page New Card' do
     it 'title on the page' do
@@ -14,11 +15,9 @@ RSpec.describe Card, type: :feature do
       expect(page).to have_content "Новая карточка"
     end
     it 'form for create card' do
-      user = FactoryGirl.create(:user)
       visit('/cards/new')
       fill_in('Original text', with: 'a table')
       fill_in('Translated text', with: 'стол')
-      select(user.email, from: 'card_user_id')
       click_button('Создать')
       card = Card.last
       expect(page).to have_content "Карточка №#{card.id}"

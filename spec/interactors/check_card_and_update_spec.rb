@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe CheckCardAndUpdate, type: :interactor do
   before (:example) do
-    @user = FactoryGirl.create(:user)
     @card = FactoryGirl.create(:card)
   end
 

@@ -2,9 +2,13 @@ require 'rails_helper'
 
 RSpec.describe Card, type: :feature do
   before (:example) do
-    @user = FactoryGirl.create(:user)
     @card = FactoryGirl.create(:card)
     @card.update(review_date: 1.day.ago)
+
+    visit('/users/sign_in')
+    fill_in('Email', with: 'email@email.mail')
+    fill_in('Пароль', with: 'password')
+    click_button('Авторизоваться')
   end
 
   describe 'Main page' do

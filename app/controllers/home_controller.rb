@@ -1,9 +1,11 @@
 class HomeController < ApplicationController
   def index
-    result = FindCard.call(
-        user: current_user
-      )
-    @card = result.card
+    if user_signed_in?
+      result = FindCard.call(
+          user: current_user
+        )
+    end
+    @card = result.card if result
   end
 
   def check

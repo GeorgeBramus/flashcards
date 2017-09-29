@@ -1,4 +1,5 @@
-= simple_form_for @card, :url => { :action => "create" } do |f|
+
+= simple_form_for @card, url: { action: action_url } do |f|
   - if @card.errors.any?
     #error_explanation
       h2 = "#{pluralize(@card.errors.count, "error")} prohibited this card from being saved:"

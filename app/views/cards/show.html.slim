@@ -9,9 +9,9 @@ h2
         .left
           = @card.review_date.strftime("%d/%m/%Y")
         .right
-          = link_to edit_card_path(@card), title: "редактировать"
+          = link_to edit_card_path(@card), title: 'редактировать'
             i.material-icons mode_edit
-          = link_to card_path(@card), method: :delete, title: "удалить"
+          = link_to card_path(@card), method: :delete, title: 'удалить'
             i.material-icons delete
 
       .card-flash.card-original-text

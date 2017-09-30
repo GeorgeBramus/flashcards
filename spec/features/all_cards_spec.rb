@@ -7,8 +7,7 @@ RSpec.describe Card, type: :feature do
       expect(page).to have_content "Все карточки"
     end
     it 'count all cards on the page' do
-      user = FactoryGirl.create(:user)
-      created_cards = FactoryGirl.create_list(:card, 2, user_id: user.id)
+      created_cards = FactoryGirl.create(:card)
       cards_in_db = Card.all.count
       visit('/cards')
       cards_on_the_page = Array.new

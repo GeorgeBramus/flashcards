@@ -41,3 +41,27 @@
 .field_select
   display: inline-block
   width: inherit
+
+// top Menu
+.menu
+  li
+    position: relative
+
+    ul
+      display: none
+      position: absolute
+      z-index: 2
+      background-color: White
+      padding: 1em 1.25em
+      box-shadow: $shadowSmall
+      top: 100%
+      right: 10px
+
+      li:hover
+        @include md_color(grey,200,background-color)
+
+  li.current-user-email:hover
+    cursor: default
+  li.current-user-email:hover ul
+    display: block
+

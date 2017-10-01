@@ -44,7 +44,7 @@ class CardsController < ApplicationController
   end
 
   private def card_params
-    params.require(:card).permit(:original_text, :translated_text, :review_date, :user_id)
+    params.require(:card).permit(:original_text, :translated_text, :review_date, :user_id, :image)
   end
 
   private def set_card

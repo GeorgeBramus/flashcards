@@ -460,8 +460,8 @@ DEPENDENCIES
   devise
   dotenv-rails
   factory_girl_rails (~> 4.0)
-  fog (~> 1.0)
-  fog-aws (~> 1.0)
+  fog (~> 1.42)
+  fog-aws (~> 1.4)
   foundation
   foundation-rails (~> 6.4.1.2)
   interactor

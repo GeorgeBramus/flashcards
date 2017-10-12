@@ -68,3 +68,8 @@ gem 'interactor'
 gem 'devise'
 gem 'omniauth-facebook'
 gem 'omniauth-vk'
+gem 'mini_magick', '~> 4.0'
+gem 'fog', '~> 1.42'
+gem 'fog-aws', '~> 1.4'
+gem 'carrierwave', '~> 1.0'
+gem 'dotenv-rails', :groups => [:development, :test]

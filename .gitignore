@@ -22,4 +22,7 @@ mentor05.sublime-project
 mentor05.sublime-workspace
 /public/packs
 /public/packs-test
+/public/uploads
 /node_modules
+.env
+

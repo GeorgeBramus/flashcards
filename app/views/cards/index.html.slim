@@ -2,7 +2,9 @@ h2 Все карточки
 .wrapper-cards.grid-x.grid-padding-x
   - if @cards
     - @cards.each do |card|
-      .card.cell.small-6.medium-4.large-3
+      .card.cell.small-6.medium-4.large-3 style="border-bottom: 1px solid grey"
+        .card-image
+          = image_tag card.image if card.image?
         .card-flash.card-date
           .left
             = link_to(card) do

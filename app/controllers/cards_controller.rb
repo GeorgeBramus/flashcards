@@ -10,7 +10,7 @@ class CardsController < ApplicationController
     end
   end
 
-  # before_action
+  # before_action :set_card
   def show
   end
 
@@ -27,24 +27,24 @@ class CardsController < ApplicationController
     end
   end
 
-  # before_action
+  # before_action :set_card
   def edit
   end
 
-  # before_action
+  # before_action :set_card
   def update
     @card.update(card_params)
     redirect_to action: 'index'
   end
 
-  # before_action
+  # before_action :set_card
   def destroy
     @card.destroy
     redirect_to action: 'index'
   end
 
   private def card_params
-    params.require(:card).permit(:original_text, :translated_text, :review_date, :user_id, :image)
+    params.require(:card).permit(:original_text, :translated_text, :review_date, :user_id, :deck_id, :image)
   end
 
   private def set_card

@@ -1,0 +1,12 @@
+= simple_form_for @deck, url: {action: action_url} do |f|
+  - if @deck.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@deck.errors.count, "error")} prohibited this deck from being saved:"
+      ul
+        - @card.errors.full_messages.each do |message|
+          li = message
+
+  = f.input :name
+  = f.input :default
+  = f.input :user_id, as: :hidden, input_html: { value: current_user.id }
+  = f.button :submit, value: button_name

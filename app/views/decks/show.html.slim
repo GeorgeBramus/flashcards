@@ -1,0 +1,10 @@
+h2 Колода
+div
+  b Название:&nbsp;
+  = @deck.name
+div
+  b По умолчанию:&nbsp;
+  - if @deck.default
+    | да
+  - else
+    | нет

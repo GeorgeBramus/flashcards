@@ -7,6 +7,6 @@
           li = message
 
   = f.input :name
-  = f.input :default
+  = f.input :default_deck, as: :boolean, checked_value: true, unchecked_value: false
   = f.input :user_id, as: :hidden, input_html: { value: current_user.id }
   = f.button :submit, value: button_name

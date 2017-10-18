@@ -5,6 +5,7 @@ class DecksController < ApplicationController
     if user_signed_in?
       user = current_user
       @decks = user.decks
+      @default_deck = user.default_deck
     end
   end
 
@@ -19,11 +20,13 @@ class DecksController < ApplicationController
 
   def create
     @deck = Deck.new(deck_params)
-    if @deck.save
-      redirect_to @deck
-    else
-      render :new
-    end
+    @default_deck = params.permit(:default_deck)
+    # if @deck.save
+    #   current_user.update_attribute(:default_deck, @deck.id) if default_deck
+    #   redirect_to @deck
+    # else
+    #   render :new
+    # end
   end
 
   # before_action :set_deck
@@ -43,7 +46,7 @@ class DecksController < ApplicationController
   end
 
   private def deck_params
-    params.require(:deck).permit(:name, :default, :user_id)
+    params.require(:deck).permit(:name, :user_id)
   end
 
   private def set_deck

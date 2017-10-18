@@ -8,18 +8,25 @@ h2 Все колоды
             = link_to(deck) do
               | Колода №
               = deck.id
+              - if @default_deck == deck.id
+                | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                span style="font-weight: bold; padding: 0.02em 0.35em 0.05em 0.35em; background-color: white" Default
           .right
             = link_to edit_deck_path(deck), title: "редактировать"
               i.material-icons mode_edit
+
+            - if @default_deck == deck.id
+              i.material-icons.default_deck title="эта колода установлена по умолчанию" center_focus_strong
+            - else
+              = link_to edit_deck_path(deck), title: "установить по умолчанию"
+                i.material-icons center_focus_weak
+
             = link_to deck_path(deck), method: :delete, title: "удалить"
               i.material-icons delete
 
         .card-flash.card-original-text
           span Название
           = deck.name
-        .card-flash.card-translated-text.card-last
-          span По умолчанию
-          = deck.default
 
   - else
     .alert-box.alert data-alert="" колоды не найдены

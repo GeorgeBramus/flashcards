@@ -1,10 +1,7 @@
-h2 Колода
+h2 Новая колода
 div
   b Название:&nbsp;
   = @deck.name
-div
-  b По умолчанию:&nbsp;
-  - if @deck.default
-    | да
-  - else
-    | нет
+  br
+  b По умолчанию&nbsp;
+  = @default_deck

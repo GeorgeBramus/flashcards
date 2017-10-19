@@ -11,7 +11,6 @@ class DecksController < ApplicationController
 
   # before_action :set_deck
   def show
-    @deck = Deck.find(params[:id])
   end
 
   def new
@@ -19,14 +18,13 @@ class DecksController < ApplicationController
   end
 
   def create
-    @deck = Deck.new(deck_params)
-    @default_deck = params.permit(:default_deck)
-    # if @deck.save
-    #   current_user.update_attribute(:default_deck, @deck.id) if default_deck
-    #   redirect_to @deck
-    # else
-    #   render :new
-    # end
+    @deck = current_user.decks.new(name: deck_params[:name])
+    current_user.default_deck = @deck if deck_params[:default_deck] == true
+    if @deck.save && current_user.save
+      redirect_to @deck
+    else
+      render :new
+    end
   end
 
   # before_action :set_deck
@@ -45,8 +43,9 @@ class DecksController < ApplicationController
     redirect_to action: 'index'
   end
 
+
   private def deck_params
-    params.require(:deck).permit(:name, :user_id)
+    params.require(:deck).permit(:name, :default_deck)
   end
 
   private def set_deck

@@ -1,6 +1,7 @@
 class Deck < ApplicationRecord
-  has_many :cards
   attr_accessor :default_deck
+  has_many :cards
+  belongs_to :user
 
   validates :name, presence: true
 end

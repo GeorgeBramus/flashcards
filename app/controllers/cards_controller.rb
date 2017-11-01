@@ -3,10 +3,9 @@ class CardsController < ApplicationController
 
   def index
     if user_signed_in?
-      user = current_user
-      @cards = user.cards
+      @cards = current_user.cards
     else
-      @cards = Card.all
+      @cards = false
     end
   end
 
@@ -19,7 +18,8 @@ class CardsController < ApplicationController
   end
 
   def create
-    @card = Card.new(card_params)
+    # @card = Card.new(card_params)
+    @card = current_user.cards.new(card_params)
     if @card.save
       redirect_to @card
     else
@@ -44,7 +44,8 @@ class CardsController < ApplicationController
   end
 
   private def card_params
-    params.require(:card).permit(:original_text, :translated_text, :review_date, :user_id, :deck_id, :image)
+    # params.require(:card).permit(:original_text, :translated_text, :review_date, :user_id, :deck_id, :image)
+    params.require(:card).permit(:original_text, :translated_text, :review_date, :deck_id, :image)
   end
 
   private def set_card

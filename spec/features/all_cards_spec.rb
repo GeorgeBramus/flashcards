@@ -7,8 +7,16 @@ RSpec.describe Card, type: :feature do
       expect(page).to have_content "Все карточки"
     end
     it 'count all cards on the page' do
-      created_cards = FactoryGirl.create(:card)
+      card = FactoryGirl.create(:card)
       cards_in_db = Card.all.count
+
+      user = card.user
+
+      visit('/users/sign_in')
+      fill_in('Email', with: user.email)
+      fill_in('Пароль', with: 'password')
+      click_button('Авторизоваться')
+
       visit('/cards')
       cards_on_the_page = Array.new
       cards_on_the_page = find('.wrapper-cards').all('.card')

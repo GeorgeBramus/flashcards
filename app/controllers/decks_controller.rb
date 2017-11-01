@@ -3,9 +3,10 @@ class DecksController < ApplicationController
 
   def index
     if user_signed_in?
-      user = current_user
-      @decks = user.decks
-      @default_deck = user.default_deck
+      @decks = current_user.decks
+      @default_deck = current_user.default_deck_id
+    else
+      @deks = false
     end
   end
 
@@ -19,8 +20,8 @@ class DecksController < ApplicationController
 
   def create
     @deck = current_user.decks.new(name: deck_params[:name])
-    current_user.default_deck = @deck if deck_params[:default_deck] == true
-    if @deck.save && current_user.save
+    if @deck.save
+      current_user.update(default_deck_id: @deck.id) if to_b(deck_params[:default_deck]) == true
       redirect_to @deck
     else
       render :new
@@ -50,5 +51,9 @@ class DecksController < ApplicationController
 
   private def set_deck
     @deck = Deck.find(params[:id])
+  end
+
+  private def to_b(val)
+    val.to_i == 1 ? true : false
   end
 end

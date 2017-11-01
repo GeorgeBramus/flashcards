@@ -18,7 +18,7 @@ h2 Все колоды
             - if @default_deck == deck.id
               i.material-icons.default_deck title="эта колода установлена по умолчанию" center_focus_strong
             - else
-              = link_to edit_deck_path(deck), title: "установить по умолчанию"
+              = link_to edit_deck_path(deck), method: :update, title: "установить по умолчанию"
                 i.material-icons center_focus_weak
 
             = link_to deck_path(deck), method: :delete, title: "удалить"

@@ -8,7 +8,6 @@
 
   = f.input :original_text
   = f.input :translated_text
-  = f.input :user_id, as: :hidden, input_html: { value: current_user.id }
   = f.input :review_date, input_html: { class: 'field_select' }
   = f.association :deck, input_html: { class: 'field_select' }
   = f.input :image, as: :file

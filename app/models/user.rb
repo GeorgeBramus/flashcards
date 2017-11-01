@@ -6,7 +6,7 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: [:facebook]
   has_many :cards, dependent: :destroy
   has_many :decks, dependent: :destroy
-  belongs_to :default_deck, class_name: 'Deck', foreign_key: 'default_deck_id'
+  belongs_to :default_deck, class_name: 'Deck', optional: true
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

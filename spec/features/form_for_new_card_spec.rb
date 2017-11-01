@@ -1,7 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Card, type: :feature do
+  let(:user) {  FactoryGirl.build(:user) }
   before(:each) do
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
     @user = FactoryGirl.create(:user)
     visit('/users/sign_in')
     fill_in('Email', with: 'email@email.mail')
@@ -10,14 +12,19 @@ RSpec.describe Card, type: :feature do
   end
 
   describe 'page New Card' do
+
     it 'title on the page' do
       visit('/cards/new')
       expect(page).to have_content "Новая карточка"
     end
+
     it 'form for create card' do
+      deck = FactoryGirl.create(:deck)
+      deck_name = Deck.first.name
       visit('/cards/new')
       fill_in('Original text', with: 'a table')
       fill_in('Translated text', with: 'стол')
+      select(deck_name, from: 'Deck')
       click_button('Создать')
       card = Card.last
       expect(page).to have_content "Карточка №#{card.id}"

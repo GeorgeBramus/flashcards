@@ -1,5 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Deck, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  context 'validates' do
+    it 'field Name not to be empty' do
+      deck = FactoryGirl.build(:deck, name: '')
+      expect(deck.valid?).to be_falsey
+    end
+  end
 end

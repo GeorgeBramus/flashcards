@@ -12,7 +12,6 @@ RSpec.describe Card, type: :feature do
   end
 
   describe 'page New Card' do
-
     it 'title on the page' do
       visit('/cards/new')
       expect(page).to have_content "Новая карточка"

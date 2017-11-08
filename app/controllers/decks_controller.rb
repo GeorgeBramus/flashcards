@@ -1,13 +1,10 @@
 class DecksController < ApplicationController
   before_action :set_deck, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   def index
-    if user_signed_in?
-      @decks = current_user.decks
-      @default_deck = current_user.default_deck_id
-    else
-      @deks = false
-    end
+    @decks = current_user.decks
+    @default_deck = current_user.default_deck_id
   end
 
   # before_action :set_deck

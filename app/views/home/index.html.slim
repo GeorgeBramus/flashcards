@@ -16,9 +16,6 @@ h4
       li = flash[:notice]
 
 - if @card
-
-
-
   = form_with( class: 'form_for_simple_trainer', url: root_path, data: { remote: false } ) do |f|
     = f.hidden_field :id, id: 'card_id', value: @card.id if @card
 
@@ -30,4 +27,7 @@ h4
 
     = f.submit "Проверить", class: "button"
 - else
-  div Карточки для повторения не найдены. Попробуйте завтра
+  - if user_signed_in?
+    div Карточки для повторения не найдены. Попробуйте завтра
+  - else
+    div Авторизуйте, или зарегистрируйтесь.

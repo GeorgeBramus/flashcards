@@ -1,12 +1,9 @@
 class CardsController < ApplicationController
   before_action :set_card, only: [ :show, :edit, :update, :destroy ]
+  before_action :authenticate_user!
 
   def index
-    if user_signed_in?
-      @cards = current_user.cards
-    else
-      @cards = false
-    end
+    @cards = current_user.cards
   end
 
   # before_action :set_card
@@ -18,7 +15,6 @@ class CardsController < ApplicationController
   end
 
   def create
-    # @card = Card.new(card_params)
     @card = current_user.cards.new(card_params)
     if @card.save
       redirect_to @card

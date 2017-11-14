@@ -3,6 +3,7 @@ Rails.application.routes.draw do
         sessions: 'users/sessions'
       }
   resources :cards
+  resources :decks
 
   root 'home#index'
   post '/', to: 'home#check'

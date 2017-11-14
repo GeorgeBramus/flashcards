@@ -31,11 +31,20 @@
     float: left
   .right
     float: right
-    a
+    a, i
       text-decoration: none
       @include md_color(grey,600)
+      cursor: pointer
       i
         font-size: 1.5em
+
+      &:hover
+        @include md_color(grey,800)
+    i.default_deck
+      font-size: 1.5em
+      cursor: default
+
+
     a.link-edit
       margin-right: .5em
       display: inline-block

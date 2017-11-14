@@ -1,16 +1,12 @@
 class CardsController < ApplicationController
   before_action :set_card, only: [ :show, :edit, :update, :destroy ]
+  before_action :authenticate_user!
 
   def index
-    if user_signed_in?
-      user = current_user
-      @cards = user.cards
-    else
-      @cards = Card.all
-    end
+    @cards = current_user.cards
   end
 
-  # before_action
+  # before_action :set_card
   def show
   end
 
@@ -19,7 +15,7 @@ class CardsController < ApplicationController
   end
 
   def create
-    @card = Card.new(card_params)
+    @card = current_user.cards.new(card_params)
     if @card.save
       redirect_to @card
     else
@@ -27,24 +23,25 @@ class CardsController < ApplicationController
     end
   end
 
-  # before_action
+  # before_action :set_card
   def edit
   end
 
-  # before_action
+  # before_action :set_card
   def update
     @card.update(card_params)
     redirect_to action: 'index'
   end
 
-  # before_action
+  # before_action :set_card
   def destroy
     @card.destroy
     redirect_to action: 'index'
   end
 
   private def card_params
-    params.require(:card).permit(:original_text, :translated_text, :review_date, :user_id, :image)
+    # params.require(:card).permit(:original_text, :translated_text, :review_date, :user_id, :deck_id, :image)
+    params.require(:card).permit(:original_text, :translated_text, :review_date, :deck_id, :image)
   end
 
   private def set_card

@@ -86,3 +86,5 @@ production:
   database: <%= ENV['HEROKU_DATABASE'] %>
   username: <%= ENV['HEROKU_USERNAME'] %>
   password: <%= ENV['HEROKU_PASSWORD'] %>
+  host: ec2-54-247-81-97.eu-west-1.compute.amazonaws.com
+  port: 5432

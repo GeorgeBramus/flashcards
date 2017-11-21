@@ -80,6 +80,9 @@ test:
 #
 production:
   <<: *default
-  database: mentor05_production
-  username: mentor05
-  password: <%= ENV['MENTOR05_DATABASE_PASSWORD'] %>
+  # database: mentor05_production
+  # username: mentor05
+  # password: <%= ENV['MENTOR05_DATABASE_PASSWORD'] %>
+  database: <%= ENV['HEROKU_DATABASE'] %>
+  username: <%= ENV['HEROKU_USERNAME'] %>
+  password: <%= ENV['HEROKU_PASSWORD'] %>

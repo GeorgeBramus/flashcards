@@ -77,10 +77,10 @@ test:
 #
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
-#
-production:
-  <<: *default
   # database: mentor05_production
   # username: mentor05
   # password: <%= ENV['MENTOR05_DATABASE_PASSWORD'] %>
+#
+production:
+  <<: *default
   url: <%= ENV['DATABASE_URL'] %>

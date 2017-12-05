@@ -2,30 +2,33 @@ class CheckCardAndUpdate
   include Interactor
 
   def call
-    custom_original_text = context.custom_original_text
-    card_id = context.card_id
-    card = Card.find_by(id: card_id)
+    card = Card.find(context.card_id)
 
-    if card
-      if coincides?(card.original_text, custom_original_text)
-        if card.correct_answer < 5
-          increment_correct_answer(card)
-          if card.review_date = set_date(card.correct_answer)
-            context.message = 'Вы правильно ответили!'
-          else
-            context.message = 'Не удалось обновить карточку. Попробуйте позже'
-          end
-        end
-      else
-        context.message = 'Неверно!'
-        unless allowable_errors?(card)
-          card.review_date = set_date(1)
-        else
-          increment_incorrect_answer(card)
-        end
-      end
+    context.message = if coincides?(card.original_text, context.custom_original_text)
+      correct_answer(card)
+      'Вы правильно ответили!'
     else
-      context.fail!
+      incorrect_answer(card)
+      'Неверно!'
+    end
+    card.save!
+  rescue ActiveRecord::RecordNotFound
+    context.fail!
+  rescue => e
+    context.fail!
+  end
+
+  private def correct_answer(card)
+    increment_correct_answer(card)
+    card.review_date = set_date(card.correct_answer)
+  end
+
+  private def incorrect_answer(card)
+    unless allowable_errors?(card)
+      reset_counters(card)
+      card.review_date = set_date(1)
+    else
+      increment_incorrect_answer(card)
     end
   end
 
@@ -34,15 +37,15 @@ class CheckCardAndUpdate
   end
 
   private def set_date(count_correct_answer)
-    new_date = case count_correct_answer
-                  when 1 then 1
-                  when 2 then 6
-                  when 3 then 14
-                  when 4 then 28
-                  when 5 then 60
-                  else then 1
-                end
-    12.hours.since * new_date
+    new_date =
+      case count_correct_answer
+      when 1 then 12.hours.since
+      when 2 then 3.days.since
+      when 3 then 1.week.since
+      when 4 then 2.weeks.since
+      when 5 then 1.month.since
+      else 12.hours.since
+      end
   end
 
   private def allowable_errors?(card)
@@ -50,11 +53,15 @@ class CheckCardAndUpdate
   end
 
   private def increment_incorrect_answer(card)
-    card.update(incorrect_answer: card.incorrect_answer + 1)
+    card.incorrect_answer = card.incorrect_answer + 1
+  end
+
+  private def reset_counter(card)
+    card.incorrect_answer = 0
+    card.correct_answer = 0
   end
 
   private def increment_correct_answer(card)
-    card.update(correct_answer: card.correct_answer + 1)
+    card.correct_answer = card.correct_answer + 1
   end
-
 end

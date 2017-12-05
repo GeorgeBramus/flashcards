@@ -53,11 +53,7 @@ class CheckCardAndUpdate
   end
 
   private def increment_incorrect_answer(card)
-    if card.incorrect_answer
-      card.incorrect_answer = card.incorrect_answer + 1
-    else
-      card.incorrect_answer = 1
-    end
+    card.incorrect_answer += 1
   end
 
   private def reset_counters(card)
@@ -66,10 +62,6 @@ class CheckCardAndUpdate
   end
 
   private def increment_correct_answer(card)
-    if card.correct_answer
-      card.correct_answer = card.correct_answer + 1
-    else
-      card.correct_answer = 1
-    end
+    card.correct_answer += 1
   end
 end

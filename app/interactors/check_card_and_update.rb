@@ -14,8 +14,8 @@ class CheckCardAndUpdate
     card.save!
   rescue ActiveRecord::RecordNotFound
     context.fail!
-  rescue => e
-    context.fail!
+  # rescue => e
+  #   context.fail!
   end
 
   private def correct_answer(card)
@@ -53,15 +53,23 @@ class CheckCardAndUpdate
   end
 
   private def increment_incorrect_answer(card)
-    card.incorrect_answer = card.incorrect_answer + 1
+    if card.incorrect_answer
+      card.incorrect_answer = card.incorrect_answer + 1
+    else
+      card.incorrect_answer = 1
+    end
   end
 
-  private def reset_counter(card)
+  private def reset_counters(card)
     card.incorrect_answer = 0
     card.correct_answer = 0
   end
 
   private def increment_correct_answer(card)
-    card.correct_answer = card.correct_answer + 1
+    if card.correct_answer
+      card.correct_answer = card.correct_answer + 1
+    else
+      card.correct_answer = 1
+    end
   end
 end

@@ -1,7 +1,7 @@
 class Card < ApplicationRecord
   mount_uploader :image, ImageForCardUploader
   belongs_to :user
-  belongs_to :deck
+  belongs_to :deck, optional: true
 
   validates :original_text, :translated_text, presence: true
   validate :coincidence, on: [ :create, :update ]

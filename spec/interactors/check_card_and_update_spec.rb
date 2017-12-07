@@ -34,6 +34,6 @@ RSpec.describe CheckCardAndUpdate, type: :interactor do
       custom_original_text: @card.original_text,
       card_id: @card.id
     )
-    expect(@card.review_date).to eq(3.days.since.to_date)
+    expect(@card.review_date).to eq(Date.today)
   end
 end

@@ -17,11 +17,4 @@ RSpec.describe Card do
       expect(card.valid?).to be_falsey
     end
   end
-
-  context 'callbacks' do
-    it 'add 3 days' do
-      card = FactoryGirl.create(:card)
-      expect(card.review_date).to eq(3.days.since.to_date)
-    end
-  end
 end

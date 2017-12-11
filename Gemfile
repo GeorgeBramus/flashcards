@@ -74,3 +74,4 @@ gem 'fog-aws', '~> 1.4'
 gem 'carrierwave', '~> 1.0'
 gem 'dotenv-rails', :groups => [:development, :test]
 gem 'faker'
+gem 'damerau-levenshtein'

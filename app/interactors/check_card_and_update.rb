@@ -1,15 +1,17 @@
 class CheckCardAndUpdate
   include Interactor
+  require "damerau-levenshtein"
+  dl = DamerauLevenshtein
 
   def call
     card = Card.find(context.card_id)
 
     context.message = if coincides?(card.original_text, context.custom_original_text)
       correct_answer(card)
-      'Вы правильно ответили!'
+      'right'
     else
       incorrect_answer(card)
-      'Неверно!'
+      'wrong'
     end
     card.save!
   rescue ActiveRecord::RecordNotFound
@@ -33,7 +35,9 @@ class CheckCardAndUpdate
   end
 
   private def coincides?(card_original_text, custom_original_text)
-    card_original_text.to_s.downcase.intern == custom_original_text.to_s.downcase.intern
+    require "damerau-levenshtein"
+    dl = DamerauLevenshtein
+    dl.distance(card_original_text.to_s.downcase.intern, custom_original_text.to_s.downcase.intern) == 0
   end
 
   private def set_date(count_correct_answer)

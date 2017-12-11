@@ -14,7 +14,9 @@ class HomeController < ApplicationController
         card_id: params[:id]
       )
 
-    # flash[:notice] = 'Неверно'
+    require "damerau-levenshtein"
+    differ = DamerauLevenshtein::Differ.new
+    @misspelling = differ.run(params[:original_text], Card.find(params[:id]).original_text)
     flash[:notice] = result.message
     redirect_to action: :index
   end

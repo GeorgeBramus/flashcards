@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Deck, type: :feature do
-  let(:deck) {  FactoryGirl.create(:deck) }
+  let(:deck) {  FactoryBot.create(:deck) }
 
   before(:each) do
     @deck = deck

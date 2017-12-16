@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe CheckCardAndUpdate, type: :interactor do
   before (:example) do
-    @card = FactoryGirl.create(:card)
+    @card = FactoryBot.create(:card)
   end
 
   describe 'return message' do

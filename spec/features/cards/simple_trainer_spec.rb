@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Card, type: :feature do
   before (:each) do
-    @card = FactoryGirl.create(:card)
+    @card = FactoryBot.create(:card)
     @card.update(review_date: 1.day.ago)
 
     user = @card.user

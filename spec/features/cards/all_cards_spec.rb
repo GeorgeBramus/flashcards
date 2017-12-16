@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Card, type: :feature do
-  let(:card) {  FactoryGirl.create(:card) }
+  let(:card) {  FactoryBot.create(:card) }
 
   before(:each) do
     @card = card

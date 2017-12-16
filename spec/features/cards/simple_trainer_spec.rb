@@ -23,14 +23,14 @@ RSpec.describe Card, type: :feature do
       original_text = @card.original_text
       fill_in('original_text', with: original_text)
       click_button('Проверить')
-      expect(page).to have_content "Вы правильно ответили!"
+      expect(page).to have_content "right"
     end
     it 'poor verification result' do
       visit('/')
       translated_text = find(:xpath, '//textarea[@name="translated_text"]').value
       fill_in('original_text', with: translated_text)
       click_button('Проверить')
-      expect(page).to have_content "Неверно!"
+      expect(page).to have_content "wrong"
     end
   end
 end

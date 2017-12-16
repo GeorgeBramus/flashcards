@@ -1,7 +1,5 @@
 class CheckCardAndUpdate
   include Interactor
-  require "damerau-levenshtein"
-  dl = DamerauLevenshtein
 
   def call
     card = Card.find(context.card_id)
@@ -26,7 +24,7 @@ class CheckCardAndUpdate
   end
 
   private def incorrect_answer(card)
-    unless allowable_errors?(card)
+    if allowable_errors?(card)
       reset_counters(card)
       card.review_date = set_date(1)
     else
@@ -35,9 +33,7 @@ class CheckCardAndUpdate
   end
 
   private def coincides?(card_original_text, custom_original_text)
-    require "damerau-levenshtein"
-    dl = DamerauLevenshtein
-    dl.distance(card_original_text.to_s.downcase.intern, custom_original_text.to_s.downcase.intern) == 0
+    DamerauLevenshtein.distance(card_original_text.mb_chars.downcase.to_s, custom_original_text.mb_chars.downcase.to_s, 0, card_original_text.mb_chars.to_s.size / 3) < 3
   end
 
   private def set_date(count_correct_answer)

@@ -33,8 +33,17 @@ class CheckCardAndUpdate
     end
   end
 
+  private def comparable(string)
+    string.mb_chars.downcase.to_s
+  end
+
   private def coincides?(card_original_text, custom_original_text)
-    DamerauLevenshtein.distance(card_original_text.mb_chars.downcase.to_s, custom_original_text.mb_chars.downcase.to_s) < card_original_text.size * ALLOWED_TYPOS
+    original = comparable(card_original_text)
+    custom = comparable(custom_original_text)
+
+    allowed_distance = original * ALLOWED_TYPOS
+
+    DamerauLevenshtein.distance(original, custom) < allowed_distance
   end
 
   private def set_date(count_correct_answer)

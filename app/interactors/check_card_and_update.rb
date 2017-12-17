@@ -1,15 +1,16 @@
 class CheckCardAndUpdate
   include Interactor
+  ALLOWED_TYPOS = 0.02
 
   def call
     card = Card.find(context.card_id)
 
     context.message = if coincides?(card.original_text, context.custom_original_text)
       correct_answer(card)
-      'Вы правильно ответили!'
+      :right
     else
       incorrect_answer(card)
-      'Неверно!'
+      :wrong
     end
     card.save!
   rescue ActiveRecord::RecordNotFound
@@ -24,21 +25,31 @@ class CheckCardAndUpdate
   end
 
   private def incorrect_answer(card)
-    unless allowable_errors?(card)
+    if allowable_errors?(card)
       reset_counters(card)
-      card.review_date = set_date(1)
+      card.review_date = set_date(0)
     else
       increment_incorrect_answer(card)
     end
   end
 
+  private def comparable(string)
+    string.mb_chars.to_s.downcase
+  end
+
   private def coincides?(card_original_text, custom_original_text)
-    card_original_text.to_s.downcase.intern == custom_original_text.to_s.downcase.intern
+    original = comparable(card_original_text)
+    custom = comparable(custom_original_text)
+
+    allowed_distance = original.size * ALLOWED_TYPOS
+
+    DamerauLevenshtein.distance(original, custom) < allowed_distance
   end
 
   private def set_date(count_correct_answer)
     new_date =
       case count_correct_answer
+      when 0 then Date.today
       when 1 then 12.hours.since
       when 2 then 3.days.since
       when 3 then 1.week.since

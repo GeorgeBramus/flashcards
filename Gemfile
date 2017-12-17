@@ -43,7 +43,7 @@ group :development, :test do
   gem 'selenium-webdriver'
 
   gem 'rspec-rails', '~> 3.6'
-  gem 'factory_girl_rails', '~> 4.0'
+  gem 'factory_bot_rails', '~> 4.8'
 end
 
 group :development do
@@ -74,3 +74,4 @@ gem 'fog-aws', '~> 1.4'
 gem 'carrierwave', '~> 1.0'
 gem 'dotenv-rails', :groups => [:development, :test]
 gem 'faker'
+gem 'damerau-levenshtein'

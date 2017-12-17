@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe CheckCardAndUpdate, type: :interactor do
   before (:example) do
-    @card = FactoryGirl.create(:card)
+    @card = FactoryBot.create(:card)
   end
 
   describe 'return message' do
@@ -11,14 +11,14 @@ RSpec.describe CheckCardAndUpdate, type: :interactor do
         custom_original_text: @card.original_text,
         card_id: @card.id
       )
-      expect(interactor.message).to eq('Вы правильно ответили!')
+      expect(interactor.message).to eq(:right)
     end
     it 'wrong answer' do
       interactor = CheckCardAndUpdate.call(
         custom_original_text: '*',
         card_id: @card.id
       )
-      expect(interactor.message).to eq('Неверно!')
+      expect(interactor.message).to eq(:wrong)
     end
     # it 'failed to update' do
     #   interactor = CheckCardAndUpdate.call(

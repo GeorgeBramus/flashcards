@@ -4,16 +4,13 @@ h4
   | Введите перевод и отправьте для проверки
 
 - if flash[:notice]
-  - if flash[:notice] == 'Вы правильно ответили!' or flash[:notice] == 'Signed in successfully.'
-    - background_color = 'right'
-  - elsif flash[:notice] == 'Неверно!'
-    - background_color = 'wrong'
-  - elsif flash[:notice] == 'Не удалось обновить карточку. Попробуйте позже' or flash[:notice] == 'Signed out successfully.'
-    - background_color = 'db_error'
-  #error_explanation class="#{background_color}"
+  #error_explanation class="#{flash[:notice]}"
     h2 Результат
     ul
       li = flash[:notice]
+
+    - if @misspelling
+      = @misspelling
 
 - if @card
   = form_with( class: 'form_for_simple_trainer', url: root_path, data: { remote: false } ) do |f|
@@ -30,4 +27,4 @@ h4
   - if user_signed_in?
     div Карточки для повторения не найдены. Попробуйте завтра
   - else
-    div Авторизуйте, или зарегистрируйтесь.
+    div Авторизуйтесь, или зарегистрируйтесь.

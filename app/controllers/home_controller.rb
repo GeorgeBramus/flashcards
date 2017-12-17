@@ -14,7 +14,6 @@ class HomeController < ApplicationController
         card_id: params[:id]
       )
 
-    # flash[:notice] = 'Неверно'
     flash[:notice] = result.message
     redirect_to action: :index
   end

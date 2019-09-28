@@ -65,7 +65,7 @@ gem 'foundation-rails', '~> 6.4.1.2'
 gem 'simple_form'
 gem 'nokogiri'
 gem 'interactor'
-gem 'devise'
+
 gem 'omniauth-facebook'
 # gem 'omniauth-vk'
 gem 'mini_magick', '~> 4.0'
